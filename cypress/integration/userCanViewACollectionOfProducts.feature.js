@@ -34,6 +34,7 @@ describe("User can see a collection of products", () => {
 
     it("unsuccessfully", () => {
       cy.get("#menu").should("not.exist");
+      cy.get("#no-menu").should("contain","There is no available menu.")
     });
   });
 });

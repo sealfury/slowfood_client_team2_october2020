@@ -18,7 +18,6 @@ class DisplayMenu extends Component {
   render() {
     let dataIndex
     if (Array.isArray(this.state.productData) && this.state.productData.length) {
-      debugger
       dataIndex = (
         <div id="menu">
           {this.state.productData.map(item => {
@@ -27,10 +26,16 @@ class DisplayMenu extends Component {
                 {item.name}{item.description}{item.price}
               </div>
             )
-          })}
+          })
+          }
         </div>
       )
+    } else {
+      return (
+        <h3 id="no-menu">There is no available menu.</h3>
+      )
     }
+
     return (
       <div>
         {dataIndex}
