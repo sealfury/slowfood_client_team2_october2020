@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { getData } from '../modules/productData'
+import { Header, Item } from 'semantic-ui-react'
 
 class DisplayMenu extends Component {
   state = {
@@ -22,9 +23,14 @@ class DisplayMenu extends Component {
         <div id="menu">
           {this.state.productData.map(item => {
             return (
-              <div key={item.id} data-cy={`product-${item.id}`}>
-                {item.name}{item.description}{item.price}
-              </div>
+              <Item key={item.id} data-cy={`product-${item.id}`}>
+                <Item.Image size='tiny' src={item.image} />
+                <Item.Content>
+                  <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>{item.name}</Item.Header>
+                  <Item.Description>{item.description}</Item.Description>
+                  <Item.Extra> {item.price}</Item.Extra>
+                </Item.Content>
+              </Item>
             )
           })
           }
@@ -32,7 +38,9 @@ class DisplayMenu extends Component {
       )
     } else {
       return (
-        <h3 id="no-menu">There is no available menu.</h3>
+        <Header as='h3' id='no-menu'>
+          There is no available menu.
+        </Header>
       )
     }
 

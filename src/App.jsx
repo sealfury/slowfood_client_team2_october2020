@@ -1,11 +1,20 @@
 import React from 'react';
 import DisplayMenu from './components/DisplayMenu';
+import { Header, Container } from 'semantic-ui-react'
 
 const App = () => {
   return (
     <>
-      <h1>Slowfood</h1>
-      <DisplayMenu />
+      
+      <Header as='h1' textAlign="center">
+        Moody Foody
+      </Header>
+      <Header as='h2' textAlign="center">
+        Run by Hungry Tigers
+      </Header>
+      <Container>
+        <DisplayMenu />
+      </Container>
     </>
   );
 }
