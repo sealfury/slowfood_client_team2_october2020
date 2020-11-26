@@ -24,7 +24,7 @@ class DisplayMenu extends Component {
           {this.state.productData.map(item => {
             return (
               <Item key={item.id} data-cy={`product-${item.id}`}>
-                <Item.Image size='tiny' src={item.image} />
+                <Item.Image size='tiny' src={`images/image${item.id}.png`} />
                 <Item.Content>
                   <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>{item.name}</Item.Header>
                   <Item.Description>{item.description}</Item.Description>
