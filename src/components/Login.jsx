@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Container, Form, Button, Icon } from 'semantic-ui-react'
 
 class Login extends Component {
   state = {
@@ -13,7 +14,7 @@ class Login extends Component {
       password: e.target.password.value,
       password_confirmation: e.target.password_confirmation.value
     }
-    let response = await axios.post('http://loacalhost:3000/api/auth', credentials)
+    let response = await axios.post('http://localhost:3000/api/auth', credentials)
     const userData = {
       uid: response.headers.uid,
       client: response.headers.client,
@@ -22,30 +23,64 @@ class Login extends Component {
     }
     localStorage.setItem("credentials", JSON.stringify(userData))
     localStorage.setItem("authenticated", true)
-    debugger
     this.props.toggleAuthenticatedState()
     this.setState({ renderRegistrationForm: false })
   }
 
   render() {
     return (
-    <>
+    <Container>
       { this.state.renderRegistrationForm ? 
-      <form onSubmit={(e) => this.authenticate(e)}>
-        <input type="text" name="email" data-cy="email" />
-        <input type="password" name="password" data-cy="password" />
-        <input type="password" name="password_confirmation" data-cy="password-confirmation" />
-        <input type="submit" value="Register" data-cy="register" />
-      </form>
+      <Form onSubmit={(e) => this.authenticate(e)}>
+        <Form.Field>
+          <label>E-mail</label>
+          <input 
+            type="text" 
+            name="email" 
+            data-cy="email" 
+            placeholder='email@email.com' 
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Password</label>
+          <input 
+            type="password" 
+            name="password" 
+            data-cy="password" 
+            placeholder='Password' 
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Confirm Password</label>
+          <input 
+            type="password" 
+            name="password_confirmation" 
+            data-cy="password-confirmation" 
+            placeholder='Type Your Password Again' 
+          />
+        </Form.Field>
+        <Button 
+          type="submit" 
+          value="Register" 
+          data-cy="register" 
+        >
+          Sign Up!
+        </Button>
+      </Form>
       :
-      <button
+      <Button animated='fade'
         data-cy="register-action"
         onClick={() => this.setState({ renderRegistrationForm: true })}
       >
-        Register
-      </button>
+        <Button.Content visible>
+          Register Here
+        </Button.Content>
+        <Button.Content hidden>
+          <Icon name='arrow right' />
+        </Button.Content>
+      </Button>
       }
-    </>
+    </Container>
     )
   }
 }
