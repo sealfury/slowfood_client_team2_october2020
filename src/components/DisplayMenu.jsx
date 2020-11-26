@@ -30,6 +30,9 @@ class DisplayMenu extends Component {
                   <Item.Description>{item.description}</Item.Description>
                   <Item.Extra> {item.price}</Item.Extra>
                 </Item.Content>
+                { localStorage.getItem('authenticated') === 'true' && 
+                <button>Add To Order</button>
+                }
               </Item>
             )
           })
