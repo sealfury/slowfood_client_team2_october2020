@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Entrecôte with chanterelle sauce and potato gratin",
+      "description": "Amazing starter with awesome SWEDISH chanterelle sauce",
+      "price": 12,
+      "image": "./images/image1.png"
+    },
+    {
+      "id": 2,
+      "name": "Raindeer tartare",
+      "description": "Amazing taste from Northern part of Sweden",
+      "price": 20,
+      "image": "./images/image2.png"
+    },
+    {
+      "id": 3,
+      "name": "Swedish pancake with lingonberries",
+      "description": "Traditional swedish taste with lingonberries picked in the forest",
+      "price": 7,
+      "image": "./images/image3.png"
+    }
+  ]
+}
