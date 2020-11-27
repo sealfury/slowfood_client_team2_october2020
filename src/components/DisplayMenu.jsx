@@ -31,7 +31,7 @@ class DisplayMenu extends Component {
                   <Item.Extra> {item.price}</Item.Extra>
                 </Item.Content>
                 { localStorage.getItem('authenticated') === 'true' && 
-                 <Button animated='fade'>
+                 <Button id="button" animated='fade'>
                   <Button.Content visible>
                     Add To Order
                   </Button.Content>
