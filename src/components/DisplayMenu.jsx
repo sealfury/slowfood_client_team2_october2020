@@ -30,15 +30,19 @@ class DisplayMenu extends Component {
                   <Item.Description>{item.description}</Item.Description>
                   <Item.Extra> {item.price}</Item.Extra>
                 </Item.Content>
-                { localStorage.getItem('authenticated') === 'true' && 
-                 <Button id="button" animated='fade'>
-                  <Button.Content visible>
-                    Add To Order
-                  </Button.Content>
-                  <Button.Content hidden>
-                    <Icon name='food' />
-                  </Button.Content>
-                </Button>
+                { localStorage.getItem('authenticated') === 'true' &&
+                  <Button
+                    id="button"
+                    animated='fade'
+                    onClick={(e) => this.props.addToOrder(e)}
+                  >
+                    <Button.Content visible>
+                      Add To Order
+                    </Button.Content>
+                    <Button.Content hidden>
+                      <Icon name='food' />
+                    </Button.Content>
+                  </Button>
                 }
               </Item>
             )
