@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { getData } from '../modules/productData'
-import { Header, Item } from 'semantic-ui-react'
+import { Header, Item, Button, Icon } from 'semantic-ui-react'
 
 class DisplayMenu extends Component {
   state = {
@@ -24,12 +24,22 @@ class DisplayMenu extends Component {
           {this.state.productData.map(item => {
             return (
               <Item key={item.id} data-cy={`product-${item.id}`}>
-                <Item.Image size='tiny' src={item.image} />
+                <Item.Image size='tiny' src={`images/image${item.id}.png`} />
                 <Item.Content>
                   <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>{item.name}</Item.Header>
                   <Item.Description>{item.description}</Item.Description>
                   <Item.Extra> {item.price}</Item.Extra>
                 </Item.Content>
+                { localStorage.getItem('authenticated') === 'true' && 
+                 <Button animated='fade'>
+                  <Button.Content visible>
+                    Add To Order
+                  </Button.Content>
+                  <Button.Content hidden>
+                    <Icon name='food' />
+                  </Button.Content>
+                </Button>
+                }
               </Item>
             )
           })
