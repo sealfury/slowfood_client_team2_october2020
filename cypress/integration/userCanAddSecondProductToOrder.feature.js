@@ -38,7 +38,7 @@ describe("Adding a second product to an order", () => {
     cy.get('[data-cy="register"]').click();
   });
 
-  it("is expected to return a success message and increase the item count in the order", () => {
+  it("is expected to return a success message", () => {
     cy.get('[data-cy="product-1"]').within(() => {
       cy.get("#button").click();
     });  
@@ -49,11 +49,6 @@ describe("Adding a second product to an order", () => {
     cy.get('[data-cy="message"]').should(
       "contain",
       "Product was successfully added to your order!"
-    );
-    
-    cy.get('[data-cy="item-count"]').should(
-      "contain",
-      "You have 2 items in your order"
     );
   });
 });

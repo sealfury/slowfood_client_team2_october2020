@@ -9,8 +9,7 @@ class App extends Component {
   state = {
     authenticated: false,
     message: null,
-    order: {},
-    orderItemsCount: null
+    order: {}
   }
 
   toggleAuthenticatedState() {
@@ -18,22 +17,20 @@ class App extends Component {
   }
 
   async addToOrder(e) {
-    let productID = parseInt(e.target.dataset.product)
+    let id = e.target.parentElement.dataset.id
     let headers = JSON.parse(localStorage.getItem('credentials'))
     let response
-    if (this.state.order.hasOwnProperty("id")) {
+    if (this.state.order.hasOwnProperty('id')) {
       response = await axios.put(`http://localhost:3000/api/orders/${this.state.order.id}`,
-      { product_id: productID },
+      { product_id: id },
       { headers: headers }
     )
     } else {
       response = await axios.post('http://localhost:3000/api/orders',
-      { product_id: productID },
+      { product_id: id },
       { headers: headers }
       )}
     this.setState({ message: response.data.message })
-    let count = response.data.order.items.length
-    this.setState({orderItemsCount: count, order: response.data.order})
   }
 
   render() {
@@ -48,7 +45,6 @@ class App extends Component {
         <Container>
           <Login toggleAuthenticatedState={() => this.toggleAuthenticatedState()} />
           {this.state.message && <h2 data-cy="message">{this.state.message}</h2>}
-          {this.state.orderItemsCount && <h2 data-cy="item-count">You have {this.state.orderItemsCount} items in your order</h2>}
           <DisplayMenu addToOrder={(e) => this.addToOrder(e)} />
         </Container>
       </>
