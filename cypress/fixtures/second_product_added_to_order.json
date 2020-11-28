@@ -8,6 +8,12 @@
         "name": "Entrecôte with chanterelle sauce and potato gratin",
         "description": "Amazing starter with awesome SWEDISH chanterelle sauce",
         "price": 12
+      },
+      {
+        "id": 2,
+        "name": "Reindeer tartare",
+        "description": "Amazing taste from Northern part of Sweden",
+        "price": 20
       }
     ]
   }

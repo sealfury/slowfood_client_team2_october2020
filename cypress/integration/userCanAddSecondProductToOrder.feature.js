@@ -1,4 +1,4 @@
-describe("Adding a product to an order", () => {
+describe("Adding a second product to an order", () => {
   beforeEach(() => {
     cy.server();
     cy.route({
@@ -23,7 +23,12 @@ describe("Adding a product to an order", () => {
     cy.route({
       method: "POST",
       url: "http://localhost:3000/api/orders",
-      response: { message: "Product was successfully added to your order!" },
+      response: "fixture:first_product_added_to_order.json",
+    });
+    cy.route({
+      method: "PUT",
+      url: "http://localhost:3000/api/orders/**",
+      response: "fixture:second_product_added_to_order.json",
     });
     cy.visit("/");
     cy.get('[data-cy="register-action"]').click();
@@ -33,13 +38,22 @@ describe("Adding a product to an order", () => {
     cy.get('[data-cy="register"]').click();
   });
 
-  it("is expecting to get a confirmation message when adding a product to order", () => {
+  it("is expected to return a success message and increase the item count in the order", () => {
     cy.get('[data-cy="product-1"]').within(() => {
       cy.get("#button").click();
+    });  
+    cy.get('[data-cy="product-2"]').within(() => {
+      cy.get("#button").click();  
     });
+
     cy.get('[data-cy="message"]').should(
       "contain",
       "Product was successfully added to your order!"
+    );
+    
+    cy.get('[data-cy="item-count"]').should(
+      "contain",
+      "You have 2 items in your order"
     );
   });
 });

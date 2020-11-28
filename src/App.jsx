@@ -8,7 +8,9 @@ import axios from 'axios'
 class App extends Component {
   state = {
     authenticated: false,
-    message: null
+    message: null,
+    order: {},
+    orderItemsCount: null
   }
 
   toggleAuthenticatedState() {
@@ -19,12 +21,19 @@ class App extends Component {
     let productID = parseInt(e.target.dataset.product)
     let headers = JSON.parse(localStorage.getItem('credentials'))
     let response
-    response = await axios.post('http://localhost:3000/api/orders',
+    if (this.state.order.hasOwnProperty("id")) {
+      response = await axios.put(`http://localhost:3000/api/orders/${this.state.order.id}`,
       { product_id: productID },
       { headers: headers }
     )
-    debugger
+    } else {
+      response = await axios.post('http://localhost:3000/api/orders',
+      { product_id: productID },
+      { headers: headers }
+      )}
     this.setState({ message: response.data.message })
+    let count = response.data.order.items.length
+    this.setState({orderItemsCount: count, order: response.data.order})
   }
 
   render() {
@@ -39,6 +48,7 @@ class App extends Component {
         <Container>
           <Login toggleAuthenticatedState={() => this.toggleAuthenticatedState()} />
           {this.state.message && <h2 data-cy="message">{this.state.message}</h2>}
+          {this.state.orderItemsCount && <h2 data-cy="item-count">You have {this.state.orderItemsCount} items in your order</h2>}
           <DisplayMenu addToOrder={(e) => this.addToOrder(e)} />
         </Container>
       </>
