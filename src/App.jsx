@@ -8,8 +8,8 @@ import axios from 'axios'
 class App extends Component {
   state = {
     authenticated: false,
-    message: null,
-    order: {}
+    orderID: "",
+    message: null
   }
 
   toggleAuthenticatedState() {
@@ -17,20 +17,25 @@ class App extends Component {
   }
 
   async addToOrder(e) {
+    debugger
     let id = e.target.parentElement.dataset.id
     let headers = JSON.parse(localStorage.getItem('credentials'))
     let response
-    if (this.state.order.hasOwnProperty('id')) {
-      response = await axios.put(`http://localhost:3000/api/orders/${this.state.order.id}`,
-      { product_id: id },
-      { headers: headers }
-    )
+    if (this.state.orderID !== "") {
+      response = await axios.put(`http://localhost:3000/api/orders/${this.state.orderID}`,
+        { product_id: id },
+        { headers: headers }
+      )
     } else {
       response = await axios.post('http://localhost:3000/api/orders',
-      { product_id: id },
-      { headers: headers }
-      )}
-    this.setState({ message: response.data.message })
+        { product_id: id },
+        { headers: headers }
+      )
+    }
+    this.setState({
+      message: response.data.message,
+      orderID: response.data.order_id
+    })
   }
 
   render() {
@@ -38,10 +43,10 @@ class App extends Component {
       <>
         <Header as='h1' textAlign="center">
           Moody Foody
-      </Header>
+        </Header>
         <Header as='h2' textAlign="center">
           Run by Hungry Tigers
-      </Header>
+        </Header>
         <Container>
           <Login toggleAuthenticatedState={() => this.toggleAuthenticatedState()} />
           {this.state.message && <h2 data-cy="message">{this.state.message}</h2>}
