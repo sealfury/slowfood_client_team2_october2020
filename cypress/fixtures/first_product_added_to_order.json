@@ -1,0 +1,14 @@
+{
+  "message": "Product was successfully added to your order!",
+  "order": {
+    "id": 55,
+    "items": [
+      {
+        "id": 1,
+        "name": "Entrecôte with chanterelle sauce and potato gratin",
+        "description": "Amazing starter with awesome SWEDISH chanterelle sauce",
+        "price": "12"
+      }
+    ]
+  }
+}
