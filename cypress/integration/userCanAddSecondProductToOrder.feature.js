@@ -22,20 +22,14 @@ describe("Adding multiple products to an order", () => {
       method: "POST",
       url: "http://localhost:3000/api/orders",
       response: 'fixture:first_product_added_to_order.json'
-      // {
-      //   message: "Product was successfully added to your order!",
-      //   order_id: 1,
-      // },
     });
+    
     cy.route({
       method: "PUT",
-      url: "http://localhost:3000/api/orders/1",
+      url: "http://localhost:3000/api/orders/**",
       response: 'fixture:second_product_added_to_order.json'
-      // {
-      //   message: "Product was successfully added to your order!",
-      //   order_id: 1,
-      // },
     });
+
     cy.visit("/");
     cy.get('[data-cy="register-action"]').click();
     cy.get('[data-cy="email"]').type("user@mail.com");
@@ -45,6 +39,9 @@ describe("Adding multiple products to an order", () => {
   });
 
   it("is expected to get a confirmation message when adding a product to order", () => {
+    cy.get('[data-cy="product-1"]').within(() => {
+      cy.get('[data-cy="button"]').click();
+    });
     cy.get('[data-cy="product-2"]').within(() => {
       cy.get('[data-cy="button"]').click();
     });
@@ -53,12 +50,4 @@ describe("Adding multiple products to an order", () => {
       "Updated product was successfully added to your order!"
     );
   });
-
-  // cy.get('[data-cy="prouct-3"]').within(() => {
-  //   cy.get("#button").click();
-  //   cy.get('[data-cy="message"]').should(
-  //     "contain",
-  //     "Updated product was successfully added to your order!"
-  //   );
-  // });
 });
