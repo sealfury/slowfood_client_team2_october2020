@@ -23,7 +23,7 @@ describe("Adding multiple products to an order", () => {
       url: "http://localhost:3000/api/orders",
       response: 'fixture:first_product_added_to_order.json'
     });
-    
+
     cy.route({
       method: "PUT",
       url: "http://localhost:3000/api/orders/**",
@@ -39,15 +39,45 @@ describe("Adding multiple products to an order", () => {
   });
 
   it("is expected to get a confirmation message when adding a product to order", () => {
-    cy.get('[data-cy="product-1"]').within(() => {
-      cy.get('[data-cy="button"]').click();
-    });
+    cy.get('[data-cy="button"]')
+      .contains("View Order")
+      .should("not.exist");
+
     cy.get('[data-cy="product-2"]').within(() => {
-      cy.get('[data-cy="button"]').click();
+      cy.get('[data-cy="button"]')
+        .contains("Add to Order")
+        .click();
+      });
+      cy.get('[data-cy="message"]').should(
+        "contain",
+        "Product was successfully added to your order!"
+      );
+    
+
+    cy.get('[data-cy="button"]')
+      .contains("View order")
+      .should("exist");
+
+    cy.get('[data-cy="product-3"]').within(() => {
+      cy.get('[data-cy="button"]')
+        .contains("Add to Order")
+        .click();
+       });
+      cy.get('[data-cy="message"]').should(
+        "contain",
+        "Product was successfully added to your order!"
+      );
+   
+
+    cy.get('[data-cy="button"]')
+      .contains("View order")
+      .click();
+    cy.get('[data-cy="order-details"]').within(() => {
+      cy.get("li").should("have.length", 2);
     });
-    cy.get('[data-cy="message"]').should(
-      "contain",
-      "Updated product was successfully added to your order!"
-    );
+    cy.get('[data-cy="button"]')
+      .contains("View order")
+      .click();
+    cy.get('[data-cy="order-details"]').should("not.exist");
   });
 });

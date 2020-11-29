@@ -1,5 +1,5 @@
 {
-  "message": "Updated product was successfully added to your order!",
+  "message": "Product was successfully added to your order!",
   "order": {
     "id": 55,
     "items": [
