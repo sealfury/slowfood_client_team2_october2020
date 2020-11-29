@@ -32,7 +32,8 @@ class DisplayMenu extends Component {
                       <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>{item.name}</Item.Header>
                       <Item.Meta>{item.price}</Item.Meta>
                       <Item.Description>{item.description}</Item.Description>
-                    </Item.Content>
+                      <br/>
+                    
                     {localStorage.getItem('authenticated') === 'true' &&
                       <Button
                         compact
@@ -41,6 +42,7 @@ class DisplayMenu extends Component {
                         animated='fade'
                         onClick={(e) => this.props.addToOrder(e)}
                         verticalAlign="middle"
+                        color='pink'
                       >
                         <Button.Content visible>
                           Add to Order
@@ -50,6 +52,7 @@ class DisplayMenu extends Component {
                         </Button.Content>
                       </Button>
                     }
+                    </Item.Content>
                   </Item>
                 </>
               )

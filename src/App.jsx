@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DisplayMenu from "./components/DisplayMenu";
-import { Header, Container } from "semantic-ui-react";
+import { Header, Container, Button, Icon, Label } from "semantic-ui-react";
 import Login from "./components/Login";
 import axios from "axios";
 
@@ -10,7 +10,8 @@ class App extends Component {
     orderID: "",
     message: null,
     productData: [] ,
-    showOrder: false
+    showOrder: false,
+    //orderItemsCount: 0
   };
 
   toggleAuthenticatedState() {
@@ -37,11 +38,14 @@ class App extends Component {
       );
     }
 
+    //let count = response.data.order_items.length 
     this.setState({
       message: response.data.message,
       orderID: response.data.order_id,
+      //orderItemsCount: count
     });
   };
+
   render() {
     let dataIndex
     return (
@@ -64,14 +68,22 @@ class App extends Component {
           
           {this.state.orderID !=="" && (
             
-            <button
-            data-cy="button"
-            onClick={() => {
-              this.setState({ showOrder: !this.state.showOrder});
-            }}
-            > 
-            View order
-            </button>
+            <Button as='div' labelPosition='right'>
+              <Button
+                color='pink'
+                data-cy="button"
+                onClick={() => {
+                  this.setState({ showOrder: !this.state.showOrder});
+                }}
+              >
+                <Icon name='cart' />
+                View order
+              </Button>
+              <Label basic color='pink' pointing='left'>
+                3
+                {/* {this.state.orderItemsCount} */}
+              </Label>
+            </Button>
           )}
           {this.state.showOrder && (
             <ul data-cy="order-details">
