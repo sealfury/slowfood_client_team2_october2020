@@ -9,6 +9,8 @@ class App extends Component {
     authenticated: false,
     orderID: "",
     message: null,
+    productData: [] ,
+    showOrder: false
   };
 
   toggleAuthenticatedState() {
@@ -39,10 +41,11 @@ class App extends Component {
       orderID: response.data.order_id,
     });
   };
-
   render() {
+    let dataIndex
     return (
       <>
+      
         <Header as="h1" textAlign="center">
           Moody Foody
         </Header>
@@ -57,8 +60,29 @@ class App extends Component {
             <h2 data-cy="message">{this.state.message}</h2>
           )}
           <DisplayMenu addToOrder={(e) => this.addToOrder(e)} />
+          
+          {this.state.orderID !=="" && (
+            
+            <button
+            data-cy="button"
+            onClick={() => {
+              this.setState({ showOrder: !this.state.showOrder});
+            }}
+            > 
+            View order
+            </button>
+          )}
+          {this.state.showOrder && (
+            <ul data-cy="order-details">
+              <li>Item 1</li>
+              <li>Item 2</li>
+            </ul>
+          )}
+
+           {dataIndex}
+
         </Container>
-      </>
+       </>
     );
   }
 }
