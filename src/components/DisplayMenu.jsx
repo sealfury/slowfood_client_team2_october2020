@@ -26,9 +26,18 @@ class DisplayMenu extends Component {
               return (
                 <>
                   <Divider horizontal>~</Divider>
-                  <Item key={item.id} data-cy={`product-${item.id}`}>
+                  <Item 
+                    key={item.id} 
+                    data-cy={`product-${item.id}`}
+
+                  >
                     <Item.Image size='small' src={`images/image${item.id}.png`} />
-                    <Item.Content verticalAlign="middle">
+                    <Item.Content 
+                      verticalAlign="middle"
+                      data-id={item.id}
+                      data-price={item.price}
+                      id={`product-${item.id}`}
+                    >
                       <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>{item.name}</Item.Header>
                       <Item.Meta>{item.price}</Item.Meta>
                       <Item.Description>{item.description}</Item.Description>
@@ -37,7 +46,6 @@ class DisplayMenu extends Component {
                     {localStorage.getItem('authenticated') === 'true' &&
                       <Button
                         compact
-                        id={`product-${item.id}`}
                         data-cy="button"
                         animated='fade'
                         onClick={(e) => this.props.addToOrder(e)}

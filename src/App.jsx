@@ -20,8 +20,8 @@ class App extends Component {
 
   async addToOrder(e) {
     debugger;
-    // let id = e.target.parentElement.dataset.id;
-    let id = e.target.id;
+    let id = e.target.parentElement.dataset.id;
+    // let id = e.target.id;
     let headers = JSON.parse(localStorage.getItem("credentials"));
     let response;
     if (this.state.orderID !== "") {
