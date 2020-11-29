@@ -16,7 +16,7 @@ describe("User can see a collection of products", () => {
     it("successfully", () => {
       cy.get("#menu").within(() => {
         cy.contains("Entrecôte with chanterelle sauce and potato gratin");
-        cy.contains("Raindeer tartare");
+        cy.contains("Reindeer tartare");
         cy.contains("Swedish pancake with lingonberries");
       });
     });

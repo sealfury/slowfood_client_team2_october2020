@@ -1,4 +1,4 @@
-describe("Adding the first product to an order", () => {
+describe("Adding multiple products to an order", () => {
   beforeEach(() => {
     cy.server();
     cy.route({
@@ -12,7 +12,7 @@ describe("Adding the first product to an order", () => {
         token_type: "Bearer",
         expiry: 1000000,
       },
-    });    
+    });
     cy.route({
       method: "GET",
       url: "http://localhost:3000/api/products",
@@ -22,11 +22,14 @@ describe("Adding the first product to an order", () => {
       method: "POST",
       url: "http://localhost:3000/api/orders",
       response: 'fixture:first_product_added_to_order.json'
-      // {
-      //   message: "Product was successfully added to your order!",
-      //   order_id: 1,
-      // },
     });
+    
+    cy.route({
+      method: "PUT",
+      url: "http://localhost:3000/api/orders/**",
+      response: 'fixture:second_product_added_to_order.json'
+    });
+
     cy.visit("/");
     cy.get('[data-cy="register-action"]').click();
     cy.get('[data-cy="email"]').type("user@mail.com");
@@ -39,9 +42,12 @@ describe("Adding the first product to an order", () => {
     cy.get('[data-cy="product-1"]').within(() => {
       cy.get('[data-cy="button"]').click();
     });
+    cy.get('[data-cy="product-2"]').within(() => {
+      cy.get('[data-cy="button"]').click();
+    });
     cy.get('[data-cy="message"]').should(
       "contain",
-      "Product was successfully added to your order!"
+      "Updated product was successfully added to your order!"
     );
   });
 });

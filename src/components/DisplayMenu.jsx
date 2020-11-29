@@ -4,7 +4,7 @@ import { Header, Item, Button, Icon } from 'semantic-ui-react'
 
 class DisplayMenu extends Component {
   state = {
-    productData: []
+    productData: [],
   }
 
   componentDidMount() {
@@ -23,34 +23,28 @@ class DisplayMenu extends Component {
         <div id="menu">
           {this.state.productData.map(item => {
             return (
-              <Item key={item.id} data-cy={`product-${item.id}`}>
-                <Item.Image size='tiny' src={`images/image${item.id}.png`} />
-                <Item.Content>
-                  <Item.Header style={{ fontSize: 20, fontWeight: "bold" }}>{item.name}</Item.Header>
-                  <Item.Description>{item.description}</Item.Description>
-                  <Item.Extra> {item.price}</Item.Extra>
-                </Item.Content>
+              <div
+                key={item.id} 
+                data-cy={`product-${item.id}`}
+                id={`product-${item.id}`}
+                data-id={item.id}
+                data-price={item.price}
+              >
+                {`${item.name} ${item.description} ${item.price}`}
                 { localStorage.getItem('authenticated') === 'true' &&
-                  <Button
-                    id="button"
-                    animated='fade'
+                  <button
+                    data-cy="button"
                     onClick={(e) => this.props.addToOrder(e)}
                   >
-                    <Button.Content visible>
-                      Add To Order
-                    </Button.Content>
-                    <Button.Content hidden>
-                      <Icon name='food' />
-                    </Button.Content>
-                  </Button>
+                  Add to Order
+                  </button> 
                 }
-              </Item>
-            )
-          })
-          }
-        </div>
+              </div>
+          )
+          })}
+          </div>
       )
-    } else {
+      } else {
       return (
         <Header as='h3' id='no-menu'>
           There is no available menu.
